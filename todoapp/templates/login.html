@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+        form{
+            height: 250px;
+            width: 300px;
+            box-shadow: 0 0 6px black;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            margin-top: 150px;
+            border-radius: 10px;
+            background-color: rgb(191, 191, 203);
+        }
+        form>input{
+            margin-top: 30px;
+            padding: 8px;
+            
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <form id="form" method="post" action="user_login">
+        {% csrf_token %}
+        <label for="username"> Username:</label>
+        <input id="username" type="text" name="username" placeholder="enter your user name">
+        <label for="password">Password:</label>
+        <input id="password" type="password" name="password" placeholder="enter your password"><br>
+        <input type="submit" value="log in ">
+        
+    </form>
+    <script>
+        const form=document.getElementById("form")
+        form.addEventListener("DOMContentLoaded",()=>{
+            form.reset()
+        })
+
+
+        
+    </script>
+    
+</body>
+</html>

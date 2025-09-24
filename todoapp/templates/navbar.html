@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            margin: auto;
+        }
+        .ul{
+            list-style-type: none;
+            display: flex;
+            justify-content: space-around;
+            background-color: white;
+            margin: 0;
+           
+        }
+        .ul>li>a{
+             text-decoration: none;
+             font-size: 34px;
+             color: rgb(14, 14, 59);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul class="ul">
+            <li><a href="/">today's work</a></li>
+            <li><a href="todo">todo</a></li>
+            <li><a href="signup">signup</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="user_logout">logout</a></li>
+            {% else %}
+                <li><a href="user_login">login </a></li>
+            {% endif %}
+
+            
+        </ul>
+    </nav>
+    
+</body>
+</html>

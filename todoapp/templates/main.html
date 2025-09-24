@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main</title>
+    <style>
+       
+        .todo{
+            display: flex;
+            flex-direction: column;
+            list-style-type: none;
+            border: 1px solid black;
+            background-color: rgb(191, 191, 203);
+            width: 300px;
+            border-radius: 10px;
+            align-self: center;
+            margin: auto;
+            margin-top: 50px;
+            box-shadow: 0 0 6px black;
+        }
+        .todo>li{
+            margin-top: 20px;
+            font-size: 24px;
+        }
+        .todo>div>a,#delete{
+            text-decoration: none;
+            padding: 8px;
+            border: 1px solid black;
+            border-radius: 5px;
+            background-color: rgb(21, 99, 80);
+            color: white;
+            
+
+        }
+        .todo>div{
+           
+            margin: 20px;
+
+        }
+        .todo>a{
+            text-decoration: none;
+            font-size: 23px;
+            margin-bottom: 20px;
+        }
+        .form{
+            height: 250px;
+            width: 300px;
+            box-shadow: 0 0 6px black;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            margin-top: 150px;
+            border-radius: 10px;
+            background-color: rgb(191, 191, 203);
+        }
+        .form>input{
+            margin-top: 30px;
+            padding: 8px;
+            
+        }
+        
+        h1{
+            color: rgb(19, 19, 56);
+            text-transform: capitalize;
+            width: 300px;
+            margin: auto;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    
+       
+    {% if user.is_authenticated %}
+
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{message}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        
+        {% if today_works %}
+        <div class="wholetodo">
+            {% for work in today_works %}
+        <ul class="todo">
+            <li> Title: {{work.title}}</li>
+            <li>Description: {{work.description}}</li>
+            <li>Created: {{work.created_at}}</li>
+            <li>Completed: {{work.completed}}</li>
+            <a href="{% url 'delete' work.id %}">Complete</a>
+           
+            <div>
+                <a href="{% url 'update' work.id %}">Update</a>
+                <label id="delete" for="checkbox">Delete</label>
+                <input id="checkbox" type="checkbox">
+                <a id="confirm" href="{% url 'delete' work.id %}">Confirm</a>
+                <a id="cancel" href="">Cancel</a>
+            </div>
+            
+             </ul>
+            
+
+         {% endfor %}
+        </div>
+        {% else %}
+                <h1>you don't have any todo list yet!!</h1>
+        
+        {% endif %}
+
+    {% else %}
+        <form class="form" method="post" action="user_login">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="enter your user name">
+        <input type="password" name="password" placeholder="enter your password"><br>
+        <input type="submit" value="log in ">
+        </form>
+
+    {% endif %}    
+    <script>
+        const del=document.getElementById("delete")
+        const confirm=document.getElementById("confirm")
+        const checkbox=document.getElementById("checkbox")
+        checkbox.style.display='none'
+        const cancel=document.getElementById("cancel")
+        cancel.style.backgroundColor='red'
+        cancel.style.display='none'
+        confirm.style.display='none'
+        del.addEventListener("click",()=>{
+            cancel.style.display='inline'
+            confirm.style.display='inline'
+            del.style.display='none'
+        })
+        cancel.addEventListener("click",()=>{
+
+            confirm.style.display='none'
+        })
+        const complete=document.getElementById("complete")
+    </script>
+</body>
+</html>

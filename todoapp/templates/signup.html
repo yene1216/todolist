@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        form{
+            width: 300px;
+            padding: 20px;
+            background-color:rgb(191, 191, 203);
+            margin: auto;
+            margin-top: 100px;
+        }
+        form>input{
+            margin-top: 20px;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+       {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{message}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form method="post" action="signup">
+        {% csrf_token %}
+        <label for="id_username">username</label>
+        {{ form.username}} <br>
+        <label for="id_email">email</label>
+        {{form.email}} <br>
+        <label for="id_password1">password</label>
+        {{form.password1}} <br>
+        <label for="id_password2">confirm</label>
+        {{form.password2}} <br>
+        <input type="submit" value="sign up">
+    </form>
+    
+</body>
+</html>
